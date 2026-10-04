@@ -1,0 +1,49 @@
+name: ci
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - run: npm ci
+      - run: npm run verify
+      - name: dist/ is committed and current (plugins and git installs run it as-is)
+        shell: bash
+        run: git diff --exit-code -- dist
+
+  # The published package on a clean machine: pack, install the tarball, record and verify a run.
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: npm ci && npm pack
+      - name: install the tarball and record a Claude Code hook session
+        run: |
+          npm install -g ./eaos-*.tgz
+          cd "$(mktemp -d)"
+          export EAOS_HOME="$PWD/store"
+          for event in '"hook_event_name":"SessionStart","source":"startup"' \
+                       '"hook_event_name":"PreToolUse","tool_name":"Bash","tool_use_id":"1","tool_input":{"command":"ls"}' \
+                       '"hook_event_name":"PostToolUse","tool_name":"Bash","tool_use_id":"1","tool_response":"ok"' \
+                       '"hook_event_name":"SessionEnd","reason":"other"'; do
+            echo "{\"session_id\":\"ci\",\"cwd\":\"$PWD\",$event}" | eaos hook
+          done
+          eaos list
+          eaos show ci
+          eaos verify

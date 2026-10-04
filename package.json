@@ -1,0 +1,53 @@
+{
+  "name": "eaos",
+  "version": "3.1.0",
+  "description": "A tamper-evident flight recorder for coding agents. Records every tool call of Pi, Claude Code, Codex and OpenCode, including the ones that were refused, in one hash-chained log you can verify.",
+  "license": "MIT",
+  "type": "module",
+  "keywords": [
+    "pi-package",
+    "pi",
+    "claude-code",
+    "codex",
+    "opencode",
+    "opencode-plugin",
+    "audit",
+    "audit-log",
+    "coding-agent",
+    "agent-governance",
+    "hash-chain"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elmokirk/eaos.git"
+  },
+  "bin": {
+    "eaos": "dist/cli.js"
+  },
+  "exports": {
+    ".": "./dist/opencode.js"
+  },
+  "pi": {
+    "extensions": [
+      "./dist/pi.js"
+    ]
+  },
+  "files": [
+    "dist",
+    "!dist/**/*.map"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc",
+    "test": "node --test \"test/*.test.ts\"",
+    "verify": "npm run typecheck && npm test && npm run build"
+  },
+  "devDependencies": {
+    "@earendil-works/pi-coding-agent": "1.0.2",
+    "@types/node": "^24.0.0",
+    "typescript": "5.9.3"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "eaos",
+  "interface": {
+    "displayName": "eaos"
+  },
+  "plugins": [
+    {
+      "name": "eaos",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/elmokirk/eaos.git",
+        "ref": "master"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

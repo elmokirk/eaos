@@ -1,0 +1,19 @@
+{
+  "name": "eaos",
+  "version": "3.1.0",
+  "description": "Flight recorder for coding agents: every tool call, including refused ones, in one tamper-evident local log (~/.eaos).",
+  "author": {
+    "name": "Kirk Kleinau",
+    "url": "https://github.com/elmokirk"
+  },
+  "homepage": "https://github.com/elmokirk/eaos",
+  "repository": "https://github.com/elmokirk/eaos",
+  "license": "MIT",
+  "keywords": [
+    "audit",
+    "observability",
+    "hooks",
+    "coding-agents"
+  ],
+  "hooks": "./hooks/claude.json"
+}

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "eaos",
+  "description": "Flight recorder for coding agents: every tool call, including refused ones, in one tamper-evident local log (~/.eaos).",
+  "owner": {
+    "name": "Kirk Kleinau",
+    "url": "https://github.com/elmokirk"
+  },
+  "plugins": [
+    {
+      "name": "eaos",
+      "description": "Flight recorder for coding agents: every tool call, including refused ones, in one tamper-evident local log (~/.eaos).",
+      "source": "./",
+      "category": "productivity"
+    }
+  ]
+}
